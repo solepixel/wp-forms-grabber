@@ -6,6 +6,7 @@ Description: Adds a simple "Edit Form" link to admin bar for popular forms plugi
 Version: 0.0.1
 Author: Brian DiChiara
 Author URI: http://briandichiara.com
+License: GNU GPL v2.0
 */
 
 define( 'WPFG_VERSION', '0.0.1' );
