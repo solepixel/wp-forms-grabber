@@ -1,0 +1,24 @@
+{
+  "camelcase": false,
+  "browser": true,
+  "curly": false,
+  "devel": false,
+  "eqeqeq": false,
+  "eqnull": true,
+  "evil": false,
+  "freeze": false,
+  "funcscope": true,
+  "indent": 4,
+  "jquery": true,
+  "maxdepth": 3,
+  "maxstatements": 50,
+  "newcap": false,
+  "node": true,
+  "quotmark": "single",
+  "strict": false,
+  "undef": true,
+  "unused": true,
+  "globals": {
+  	"wpfg_vars": true
+  }
+}

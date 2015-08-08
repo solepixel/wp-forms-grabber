@@ -1,4 +1,4 @@
-;var WPFG;
+var WPFG;
 
 (function($) {
 
@@ -31,9 +31,9 @@
 				$parent.append( $submenu );
 
 				for ( var property in this.schema.menus ) {
-					var url = this.schema.menus[property].url.format( form.form_id );
-					var title = this.schema.menus[property].label;
-					$submenu.find('ul').append( this.create_menu_item( context + property, url, title ) );
+					var url = this.schema.menus[property].url.format( form.form_id ),
+						item_title = this.schema.menus[property].label;
+					$submenu.find('ul').append( this.create_menu_item( context + property, url, item_title ) );
 				}
 			} else {
 				$parent.append( this.create_menu_item( context, edit_url, title ) );
@@ -54,7 +54,7 @@
 				dataType: 'json',
 				success: function( response ){
 					if( response.form_title )
-						$('#wp-admin-bar-' + context ).find('a:first').text( response.form_title )
+						$('#wp-admin-bar-' + context ).find('a:first').text( response.form_title );
 				}
 			});
 
@@ -115,7 +115,7 @@
 	/**
 	 * Gravity Forms Implementation
 	 */
-	$(document).bind( 'gform_post_render', function( e, form_id, current_page ){
+	$(document).bind( 'gform_post_render', function( e, form_id ){
 		WPFG.add_menu( { form_id: form_id, schema: 'gravityforms' } );
 	});
 

@@ -20,7 +20,7 @@ add_action( 'admin_bar_init', 'wpfg_enqueue_script' );
  * @return void
  */
 function wpfg_enqueue_script(){
-	wp_register_script( 'wpfg-admin-bar', WPFG_URL . 'js/admin-bar.js', array( 'admin-bar', 'jquery' ), WPFG_VERSION );
+	wp_register_script( 'wpfg-admin-bar', WPFG_URL . 'js/admin-bar.min.js', array( 'admin-bar', 'jquery' ), WPFG_VERSION );
 	wp_localize_script( 'wpfg-admin-bar', 'wpfg_vars', array(
 		'schemas' => json_encode( wpfg_get_schemas(), JSON_FORCE_OBJECT ),
 		'ajax_url' => admin_url() . 'admin-ajax.php'
