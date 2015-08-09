@@ -3,13 +3,13 @@
 Plugin Name: WP Forms Grabber
 Plugin URI: https://briandichiara.com
 Description: Adds a simple "Edit Form" link to admin bar for popular forms plugins
-Version: 0.0.2
+Version: 0.0.3
 Author: Brian DiChiara
 Author URI: http://briandichiara.com
 License: GNU GPL v2.0
 */
 
-define( 'WPFG_VERSION', '0.0.2' );
+define( 'WPFG_VERSION', '0.0.3' );
 define( 'WPFG_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPFG_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -109,3 +109,9 @@ include_once( WPFG_PATH . 'schemas/gravityforms.php' );
 include_once( WPFG_PATH . 'schemas/cf7.php' );
 include_once( WPFG_PATH . 'schemas/ninjaforms.php' );
 include_once( WPFG_PATH . 'schemas/formidable.php' );
+include_once( WPFG_PATH . 'schemas/visualformbuilder.php' );
+include_once( WPFG_PATH . 'schemas/vfbpro.php' );
+include_once( WPFG_PATH . 'schemas/jetpackcontactform.php' );
+include_once( WPFG_PATH . 'schemas/formmaker.php' );
+include_once( WPFG_PATH . 'schemas/xyzcontact.php' );
+include_once( WPFG_PATH . 'schemas/formcraft.php' );

@@ -65,8 +65,8 @@ if ( ! String.prototype.format ) {
 				$parent.append( $submenu );
 
 				for ( var property in this.schema ) {
-					var url = this.schema[property].url.format( this.form.form_id ),
-						item_title = this.schema[property].label;
+					var url = ( this.schema[property].url.indexOf('{0}') <= -1 ) ? this.schema[property].url : this.schema[property].url.format( this.form.form_id ),
+					item_title = this.schema[property].label;
 					$submenu.find('ul').append( this.create_menu_item( context + property, url, item_title ) );
 				}
 			} else {
@@ -104,6 +104,9 @@ if ( ! String.prototype.format ) {
 		get_edit_url: function(){
 			if( ! this.schema.edit || ! this.schema.edit.url )
 				return '#';
+
+			if( this.schema.edit.url.indexOf('{0}') <= -1 )
+				return this.schema.edit.url;
 
 			return this.schema.edit.url.format( this.form.form_id );
 		}, // get_edit_url
