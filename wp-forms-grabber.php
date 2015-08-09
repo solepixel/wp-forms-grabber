@@ -3,13 +3,13 @@
 Plugin Name: WP Forms Grabber
 Plugin URI: https://briandichiara.com
 Description: Adds a simple "Edit Form" link to admin bar for popular forms plugins
-Version: 0.0.1
+Version: 0.0.2
 Author: Brian DiChiara
 Author URI: http://briandichiara.com
 License: GNU GPL v2.0
 */
 
-define( 'WPFG_VERSION', '0.0.1' );
+define( 'WPFG_VERSION', '0.0.2' );
 define( 'WPFG_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPFG_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -22,7 +22,8 @@ add_action( 'admin_bar_init', 'wpfg_enqueue_script' );
 function wpfg_enqueue_script(){
 	wp_register_script( 'wpfg-admin-bar', WPFG_URL . 'js/admin-bar.min.js', array( 'admin-bar', 'jquery' ), WPFG_VERSION );
 	wp_localize_script( 'wpfg-admin-bar', 'wpfg_vars', array(
-		'schemas' => json_encode( wpfg_get_schemas(), JSON_FORCE_OBJECT ),
+		'schemas' => json_encode( wpfg_get_schema_menus(), JSON_FORCE_OBJECT ),
+		'init' => wpfg_get_scripts(),
 		'ajax_url' => admin_url() . 'admin-ajax.php'
 	));
 
@@ -41,6 +42,20 @@ function wpfg_get_schemas( $schema = false ){
 		return $schemas[ $schema ];
 
 	return $schemas;
+}
+
+/**
+ * Filter out all the junk in the schemas and send over only what's needed
+ * @return array Schema Menus
+ */
+function wpfg_get_schema_menus(){
+	$menus = array();
+	$schemas = wpfg_get_schemas();
+	foreach( $schemas as $key => $schema ){
+		if( isset( $schema['menus'] ) )
+			$menus[ $key ] = $schema['menus'];
+	}
+	return $menus;
 }
 
 add_action( 'wp_ajax_wpfg_get_title', 'wpfg_get_title' );
@@ -68,6 +83,23 @@ function wpfg_get_title(){
 	}
 
 	wp_send_json( $response );
+}
+
+/**
+ * Compile all the JS to init the forms
+ * @return string JavaScript callable function.
+ */
+function wpfg_get_scripts(){
+	$scripts = '';
+	foreach( wpfg_get_schemas() as $schema ){
+		if( isset( $schema['js'] ) && $schema['js'] )
+			$scripts .=  $schema['js'];
+	}
+
+	if( $scripts )
+		$scripts = '(function(){' . $scripts . '})();';
+
+	return $scripts;
 }
 
 /**
