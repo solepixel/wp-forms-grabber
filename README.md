@@ -15,13 +15,11 @@ Most form plugins use a shortcode or custom PHP code to embed forms into posts, 
  - Jetpack Contact Form
  - Form Maker
  - Contact Form Manager (XYZ Contact)
+ - FormCraft
 
 ## Upcoming Plugins Support
 
  - ~~Breezing Forms~~ (use the docs to add support)
- - Quform
- - FormCraft
- - FormGet (formerly Easy Contact Forms)
 
 ## Documentation
 
@@ -49,7 +47,12 @@ Then, append your schema to the schema array that's passed into the array.
 					'url' => admin_url() . 'admin.php?page=mycustomform&id={0}&action=submissions',
 					'label' => __( 'Form Submissions' )
 				)
-			)
+			),
+			'js' => "$(function(){
+				$.each( $('.my-custom-form-class'), function(i, el){
+					WPFG.add_menu({ form_id: $(el).find('input:hidden[name="form_id"]').val(), schema: 'mycustomform' });
+				});
+			});"
 		);
 		
 		return $schemas;
@@ -58,7 +61,10 @@ Then, append your schema to the schema array that's passed into the array.
 Here are some important things to note about the schema:
 
  - $schemas['unqiuename']: Each schema needs a unique identifier that is used for the menu IDs as well as distinguishing them from other forms. The array index will hold this unique name. Dashes, underscores and numbers are allowed, but no special characters and no spaces.
- - Array Structure: Note how the array is structured. There are 2 array indexes used: "callback" and "menus". The value for "callback" needs to be a string (see below), and the value for "menus" should be an array. More information on the "menus" below.
+ - Array Structure: Note how the array is structured. There are 3 array indexes used: "callback", "menus" and "js".
+   - The value for "callback" needs to be a string (see below).
+   - The value for "menus" should be an array. More information on the "menus" below.
+   - The value for "js" should be a string of javascript to detect your forms. More info below.
  - Be sure to return the $schemas variable, since this is a filter.
 
 ### Schema Callback
@@ -85,3 +91,11 @@ The menus array allows you to provide a custom set of menus for each form. If yo
  - Value: Array containing the properties of the menu item (URL and Label)
  	- URL: The URL to the desired destination. The Form ID will be formatted into the URL using a {0} placeholder
  	- Label: This is the text that appears in the menu. ("edit" label isn't used when no other menus exist)
+
+### Javascript API
+
+In order to create a menu, you need to call WPFG.add_menu(); This method accepts 1 parameter. It should be an object that contains the following properties:
+
+- form_id (required): This is the ID of the form that will be passed into the menus and callback.
+- schema (required): This will identify which schema to use. Make sure this matches your array key uniquename above
+- title (optional): If provided, callback is not needed, and the menu will use this value for the title of the form.
