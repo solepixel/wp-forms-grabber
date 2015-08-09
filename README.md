@@ -10,12 +10,13 @@ Most form plugins use a shortcode or custom PHP code to embed forms into posts, 
  - Ninja Forms
  - Contact Form 7
  - Formidable (this adds functionality to the menu already existing in Formidable)
+ - Visual Form Builder
+ - Visual Form Builder Pro
+ - Jetpack Contact Form
 
 ## Upcoming Plugins Support
 
- - Visual Form Builder
- - Jetpack Contact Form
- - Breezing Forms
+ - ~~Breezing Forms~~ (use the docs to add support)
  - Form Maker
  - Contact Form Manager
  - Quform
