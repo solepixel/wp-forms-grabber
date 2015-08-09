@@ -13,12 +13,12 @@ Most form plugins use a shortcode or custom PHP code to embed forms into posts, 
  - Visual Form Builder
  - Visual Form Builder Pro
  - Jetpack Contact Form
+ - Form Maker
+ - Contact Form Manager (XYZ Contact)
 
 ## Upcoming Plugins Support
 
  - ~~Breezing Forms~~ (use the docs to add support)
- - Form Maker
- - Contact Form Manager
  - Quform
  - FormCraft
  - FormGet (formerly Easy Contact Forms)
